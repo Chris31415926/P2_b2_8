@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chronic diseases is a problem - Log in screen</title>
+    <script type="text/javascript">
+    /* Function that chekcks wheter both the ID and password is registered into the database. 
+    Goes to next page if they are found in the database, else leaves a message about being unable to log in */
+    function checker(){
+        var id = document.getElementById("ID").value;
+        var pw = document.getElementById("Password").value;
+        /* Once the database has been set up, this should be changed. */
+        var Database = [['Generic user name', '1234'],['Gamey boi', '133742069'],['Admin', '0000'],['Idk', '1 I guess']]
+
+        /* For loop that goes through the whole database to check whether the input is within it */
+        for(let len = 0; len<Database.length; len++){
+            if(id === Database[len][0] && pw === Database[len][1]){
+                /* Once the next page is available, change the code to go to the next page. */
+                alert("Loged in.");
+                // window.location = ".html";
+            }
+        }
+
+        /* Changes the text of wrong input to red */
+        document.getElementById("Wrong").style.color = "red";
+    }
+    </script>
+</head>
+
+<body>
+    <!-- Input for user id -->
+    <h3> User ID </h3>
+    <input type="text" name="UserID" id="ID" value=""/>
+    <br/>
+    <!-- Input for Password -->
+    <h3> Password </h3>
+    <input type="text" name="Password" id="Password" value=""/>
+    <br/>
+    <!-- Text that displays that a wrong input has been registered. Default color is the same as the background of the page, so it is not visiable for the user. -->
+    <p id="Wrong" style="color: white;">That is not a valid input.</p>
+    <br/>
+    <!-- Button that, once clicked, either goes to a new page or displays the wrong input message. -->
+    <button onclick="checker()">Log in</button>
+</body>
+</html>
