@@ -1,6 +1,11 @@
-var running = 1;
+var running = true;
 
 var question = "";
+
+var stopAlgorithm = 0;
+var CancerValue = 0;
+var COPDValue = 0;
+var DiabetesValue = 0;
 
 var q1 = "Are you cold?";
 var q2 = "Do you or have you smoked in the past?";
@@ -89,9 +94,6 @@ var q5DDiabetes = 0;
 function next() {
 
     var answer = document.Questionaire.Answer.value;
-    var CancerValue = 0;
-    var COPDValue = 0;
-    var DiabetesValue = 0;
 
     if (running == true) {
 
@@ -127,9 +129,13 @@ function next() {
                 DiabetesValue = DiabetesValue + (1 - q1Diabetes);
     
             }
-                    
+          
                 question = q2;
-                    
+                stopAlgorithm++;    
+                console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+
+
+
         } else {
 
             if (question == q5) {
@@ -150,7 +156,10 @@ function next() {
                     DiabetesValue = DiabetesValue + (1 - q5Diabetes);
     
                 }
-                
+
+                stopAlgorithm++; 
+                console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+
             } if (question == q4) {
 
                 document.getElementById('QUESTION').innerHTML
@@ -171,6 +180,8 @@ function next() {
                 }
 
                     question = q5;
+                    stopAlgorithm++; 
+                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
 
             } if (question == q3) {
 
@@ -192,6 +203,8 @@ function next() {
                 }
 
                     question = q4;
+                    stopAlgorithm++; 
+                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
 
             } if (question == q2) {
 
@@ -213,7 +226,8 @@ function next() {
                 }  
 
                     question = q3;
-
+                    stopAlgorithm++; 
+                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
             } if (question == q1) {
 
                 document.getElementById('QUESTION').innerHTML
@@ -234,9 +248,18 @@ function next() {
                 }
 
                     question = q2;
+                    stopAlgorithm++; 
+                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
 
+                    
             }
             
+        }
+
+        if (stopAlgorithm >= 20) {
+
+            running = false;
+
         }
 
         if (question == q5 && COPDValue > CancerValue && COPDValue > DiabetesValue) {
@@ -315,14 +338,10 @@ function next() {
             question = q1;
 
         }
-        
-    } else {
 
-        document.write(COPDValue);
-        document.write(" ");
-        document.write(CancerValue);
-        document.write(" ");
-        document.write(DiabetesValue);
+    } else if (running == false) {
+
+        window.location = "commentUK.html";
 
     }
 }
