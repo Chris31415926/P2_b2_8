@@ -13,12 +13,23 @@
     function checker(){
         var id = document.getElementById("ID").value;
         var pw = document.getElementById("Password").value;
-        /* Once the database has been set up, this should be changed */
-        var Database = [['Generic user name', '1234'],['Gamey boi', '133742069'],['Admin', '0000'],['Idk', '1 I guess']]
+        
+        /* Importing the database */
+        const Http = new XMLHttpRequest();
+        Http.responseType = "json";
+        const url='http://34.90.90.3:3000/users';
+        Http.open("GET", url);
+        Http.send();
+        console.log("waiting");
+        Http.onreadystatechange = (e) => {
+        Database = Http.response;
+        if(Database.length!=null){
+            datalength = Database.length;
+        }
 
         /* for loop that goes through the whole database to check whether the input is within it */
-        for(let len = 0; len<Database.length; len++){
-            if(id === Database[len][0] && pw === Database[len][1]){
+        for(let len = 0; len<datalength; len++){
+            if(id === Database[len].user && pw === Database[len].password){
                 /* If the input is correct then go to the next page */
                 window.location = "Doc_info_page.html";
             }
