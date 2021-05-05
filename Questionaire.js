@@ -101,7 +101,7 @@ function next() {
 
     if(boxCheckedYes != true && boxCheckedNo != true) {
 
-            alert("You haven't checked all boxes.");
+            alert("You haven't checked any boxes.");
             running = undefined;
 
     } else if (boxCheckedYes == true || boxCheckedNo == true) {
