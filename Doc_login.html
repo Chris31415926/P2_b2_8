@@ -4,6 +4,8 @@
 <head>
     <title>Chronic diseases is a problem - Log in screen</title>
     <script type="text/javascript">
+    var Database;
+    var datalength;
 
     /* This variabel is made to make sure that the web page doesn't write the error message more than once */
     var counter = 0
@@ -13,7 +15,7 @@
     function checker(){
         var id = document.getElementById("ID").value;
         var pw = document.getElementById("Password").value;
-        
+
         /* Importing the database */
         const Http = new XMLHttpRequest();
         Http.responseType = "json";
@@ -26,6 +28,8 @@
         if(Database.length!=null){
             datalength = Database.length;
         }
+
+    }
 
         /* for loop that goes through the whole database to check whether the input is within it */
         for(let len = 0; len<datalength; len++){
