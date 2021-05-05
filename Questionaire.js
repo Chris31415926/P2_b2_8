@@ -104,9 +104,15 @@ function next() {
             alert("You haven't checked all boxes.");
             running = undefined;
 
-    } else {
+    } else if (boxCheckedYes == true || boxCheckedNo == true) {
 
-        running = true;
+            running = true;
+
+    }
+
+    if (stopAlgorithm >= 20) {
+
+        running = false;
 
     }
 
@@ -148,10 +154,6 @@ function next() {
                 question = q2;
                 stopAlgorithm++;    
                 console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-                boxCheckedYes = false;
-                boxCheckedNo = false;
-
-
 
         } else {
 
@@ -199,9 +201,6 @@ function next() {
                     question = q5;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-                    boxCheckedYes = false;
-                boxCheckedNo = false;
-
 
             } if (question == q3) {
 
@@ -225,9 +224,6 @@ function next() {
                     question = q4;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-                    boxCheckedYes = false;
-                boxCheckedNo = false;
-
 
             } if (question == q2) {
 
@@ -251,8 +247,6 @@ function next() {
                     question = q3;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-                    boxCheckedYes = false;
-                boxCheckedNo = false;
 
             } if (question == q1) {
 
@@ -276,19 +270,10 @@ function next() {
                     question = q2;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-                    boxCheckedYes = false;
-                boxCheckedNo = false;
-
 
                     
             }
             
-        }
-
-        if (stopAlgorithm >= 20) {
-
-            running = false;
-
         }
 
         if (question == q5 && COPDValue > CancerValue && COPDValue > DiabetesValue) {
