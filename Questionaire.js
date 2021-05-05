@@ -1,4 +1,4 @@
-var running = true;
+var running;
 
 var question = "";
 
@@ -95,6 +95,22 @@ function next() {
 
     var answer = document.Questionaire.Answer.value;
 
+    var boxCheckedYes = a1.checked;
+    var boxCheckedNo = a2.checked;
+    
+
+    if(boxCheckedYes != true && boxCheckedNo != true) {
+
+            alert("You haven't checked all boxes.");
+            running = undefined;
+
+    } else {
+
+        running = true;
+
+    }
+
+
     if (running == true) {
 
         if (question == "") {
@@ -132,6 +148,8 @@ function next() {
                 question = q2;
                 stopAlgorithm++;    
                 console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+                boxCheckedYes = false;
+                boxCheckedNo = false;
 
 
 
@@ -181,6 +199,9 @@ function next() {
                     question = q5;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+                    boxCheckedYes = false;
+                boxCheckedNo = false;
+
 
             } if (question == q3) {
 
@@ -204,6 +225,9 @@ function next() {
                     question = q4;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+                    boxCheckedYes = false;
+                boxCheckedNo = false;
+
 
             } if (question == q2) {
 
@@ -227,6 +251,9 @@ function next() {
                     question = q3;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+                    boxCheckedYes = false;
+                boxCheckedNo = false;
+
             } if (question == q1) {
 
                 document.getElementById('QUESTION').innerHTML
@@ -249,6 +276,9 @@ function next() {
                     question = q2;
                     stopAlgorithm++; 
                     console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+                    boxCheckedYes = false;
+                boxCheckedNo = false;
+
 
                     
             }
