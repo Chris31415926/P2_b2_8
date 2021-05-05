@@ -7,89 +7,89 @@ var CancerValue = 0;
 var COPDValue = 0;
 var DiabetesValue = 0;
 
-var q1 = "Are you cold?";
-var q2 = "Do you or have you smoked in the past?";
-var q3 = "Have you been losing a lot of weight?";
-var q4 = "Do you eat a lot?";
-var q5 = "Are you tired a lot?";
+var q1 = "Have you been exposed to dust for a long time?";
+var q2 = "Have you got any new moles or a change in an existing mole?";
+var q3 = "Do you have trouble breathing when you exercise?";
+var q4 = "Do you have trouble urinating?";
+var q5 = "Do you cough mucus up?";
 var q1COPD = 1;
-var q1Cancer = 0;
+var q1Cancer = 1;
 var q1Diabetes = 0;
-var q2COPD = 1;
-var q2Cancer = 0;
-var q2Diabetes = 0;
+var q2COPD = 0;
+var q2Cancer = 1;
+var q2Diabetes = 1;
 var q3COPD = 1;
-var q3Cancer = 0;
+var q3Cancer = 1;
 var q3Diabetes = 0;
-var q4COPD = 1;
-var q4Cancer = 0;
-var q4Diabetes = 0;
-var q5COPD = 0;
+var q4COPD = 0;
+var q4Cancer = 1;
+var q4Diabetes = 1;
+var q5COPD = 1;
 var q5Cancer = 1;
 var q5Diabetes = 0;
 
-var q1CO = "Cool";
-var q2CO = "Cold";
-var q3CO = "Covid";
-var q4CO = "Coolios";
-var q5CO = "COCO";
+var q1CO = "Have you ever had a respiratory illnesses in your childhood?";
+var q2CO = "Does your family have a history of respiratory diseases?";
+var q3CO = "Is your conditions affecting your quality of life?";
+var q4CO = "Do you use any kind of medicine including inhalers?";
+var q5CO = "Do you experience hoarseness?";
 var q1COCOPD = 1;
 var q1COCancer = 0;
 var q1CODiabetes = 0;
 var q2COCOPD = 1;
-var q2COCancer = 1;
-var q2CODiabetes = 1;
-var q3COCOPD = 0;
-var q3COCancer = 1;
+var q2COCancer = 0;
+var q2CODiabetes = 0;
+var q3COCOPD = 1;
+var q3COCancer = 0;
 var q3CODiabetes = 0;
-var q4COCOPD = 0;
+var q4COCOPD = 1;
 var q4COCancer = 0;
-var q4CODiabetes = 1;
+var q4CODiabetes = 0;
 var q5COCOPD = 1;
-var q5COCancer = 0;
-var q5CODiabetes = 1;
+var q5COCancer = 1;
+var q5CODiabetes = 0;
 
-var q1C = "Camp";
-var q2C = "Can";
-var q3C = "Cannon";
-var q4C = "Car";
-var q5C = "Cake";
-var q1CCOPD = 1;
+var q1C = "Do you have a firm or lump feeling in your breast or under your arm?";
+var q2C = "Do you have skin that is itchy, red, scaly, dimpled or puckered?";
+var q3C = "Do you experience bleeding or bruising for no known reason?";
+var q4C = "Do you experience pain after eating? (Heartburn or indigestion that does not go away)";
+var q5C = "Do you experience trouble swallowing?";
+var q1CCOPD = 0;
 var q1CCancer = 1;
-var q1CDiabetes = 1;
+var q1CDiabetes = 0;
 var q2CCOPD = 0;
 var q2CCancer = 1;
 var q2CDiabetes = 0;
-var q3CCOPD = 1;
+var q3CCOPD = 0;
 var q3CCancer = 1;
 var q3CDiabetes = 0;
-var q4CCOPD = 1;
-var q4CCancer = 0;
-var q4CDiabetes = 1;
+var q4CCOPD = 0;
+var q4CCancer = 1;
+var q4CDiabetes = 0;
 var q5CCOPD = 0;
 var q5CCancer = 1;
-var q5CDiabetes = 1;
+var q5CDiabetes = 0;
 
-var q1D = "Dish";
-var q2D = "Dash";
-var q3D = "Dush";
-var q4D = "Dosh";
-var q5D = "Desh";
-var q1DCOPD = 1;
+var q1D = "Do you often feel thirsty?";
+var q2D = "Are you often feeling tired?";
+var q3D = "Does your family have a history of diabetes?";
+var q4D = "Are you physically active?";
+var q5D = "Have you ever had gestational diabetes?";
+var q1DCOPD = 0;
 var q1DCancer = 0;
-var q1DDiabetes = 0;
-var q2DCOPD = 1;
+var q1DDiabetes = 1;
+var q2DCOPD = 0;
 var q2DCancer = 0;
-var q2DDiabetes = 0;
-var q3DCOPD = 1;
+var q2DDiabetes = 1;
+var q3DCOPD = 0;
 var q3DCancer = 0;
-var q3DDiabetes = 0;
-var q4DCOPD = 1;
+var q3DDiabetes = 1;
+var q4DCOPD = 0;
 var q4DCancer = 0;
-var q4DDiabetes = 0;
-var q5DCOPD = 1;
+var q4DDiabetes = 1;
+var q5DCOPD = 0;
 var q5DCancer = 0;
-var q5DDiabetes = 0;
+var q5DDiabetes = 1;
 
 function next() {
 
@@ -102,10 +102,9 @@ function next() {
             if (answer == "yes") {
 
                 COPDValue++;
+                CancerValue++;
         
             } else if (answer == "no") {
-        
-                CancerValue++;
         
                 DiabetesValue++;
         
