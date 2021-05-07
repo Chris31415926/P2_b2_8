@@ -25,7 +25,12 @@ var Database = {
     questionsDiabetes: ["Do you often feel thirsty?", "Are you often feeling tired?", "Does your family have a history of diabetes?", 
     "Are you physically active?", "Have you ever had gestational diabetes?"],
     
-    diabetesValues: [[0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1]]
+    diabetesValues: [[0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1]],
+
+    questionGeneral: ["yeet", "jacky chan", "big chungus",
+    "sanic", "pepe"],
+
+    generalValues: [[1, 3, 3], [7, 0, 0], [42, 0, 69], [6, 6, 6], [4, 2, 0]],
 
 };
 
@@ -42,10 +47,12 @@ var DiabetesValue = 0;
 
 var i = 0;
 
-function firstQuestion(){
+function firstQuestion() {
 
     question = Database.questionFirst;
-    document.getElementById('QUESTION').innerHTML = question;
+
+    document.getElementById('QUESTION').innerHTML 
+        = question;
 
 }
 
@@ -58,7 +65,7 @@ function next() {
     var boxCheckedNo = a2.checked;
     
 
-    if(boxCheckedYes != true && boxCheckedNo != true) {
+    if (boxCheckedYes != true && boxCheckedNo != true) {
         
             alert("You haven't checked any boxes.");
             running = undefined;
@@ -169,8 +176,8 @@ function next() {
 
         } else if (i >= storedQuestions.length && (DiabetesValue == CancerValue || DiabetesValue == COPDValue || CancerValue == COPDValue)) {
             
-            storedQuestions = Database.questionStart;
-            storedValues = Database.startValues;
+            storedQuestions = Database.questionGeneral;
+            storedValues = Database.generalValues;
 
             i = 0;
 
