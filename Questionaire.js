@@ -32,6 +32,10 @@ var Database = {
 
     generalValues: [[1, 3, 3], [7, 0, 0], [42, 0, 69], [6, 6, 6], [4, 2, 0]],
 
+    totalQuestions: 21,
+
+    totalValues:[21, 21, 21]
+
 };
 
 var running;
@@ -39,8 +43,13 @@ var running;
 var storedQuestions = [];
 var question = "";
 var storedValues = [];
+var usedQuestions = [];
+var questionAnswers = [];
 
-var stopAlgorithm = 0;
+/* Tempoary */
+var k = 0;
+/* Tempoary */
+
 var CancerValue = 0;
 var COPDValue = 0;
 var DiabetesValue = 0;
@@ -63,7 +72,7 @@ function next() {
 
     var boxCheckedYes = a1.checked;
     var boxCheckedNo = a2.checked;
-    
+
 
     if (boxCheckedYes != true && boxCheckedNo != true) {
         
@@ -82,7 +91,23 @@ function next() {
         storedValues = Database.startValues;
     }
 
-    if (stopAlgorithm >= 20) {
+    if ((COPDValue > (0.9 * Database.totalValues[0])
+    && CancerValue < (0.4 * Database.totalValues[1]) 
+    && DiabetesValue < (0.4 * Database.totalValues[2])) 
+    || (CancerValue > (0.9 * Database.totalValues[1])
+    && DiabetesValue < (0.4 * Database.totalValues[2]) 
+    && COPDValue < (0.4 * Database.totalValues[0])) 
+    || (DiabetesValue > (0.9 * Database.totalValues[2]) 
+    && CancerValue < (0.4 * Database.totalValues[1]) 
+    && COPDValue < (0.4 * Database.totalValues[0]))) {
+
+        running = false;
+
+    } else if (COPDValue >= Database.totalValues[0] || CancerValue >= Database.totalValues[1] || DiabetesValue >= Database.totalValues[2]) {
+
+        running = false;
+
+    } else if (k >= Database.totalQuestions) {
 
         running = false;
 
@@ -111,9 +136,8 @@ function next() {
             
             document.getElementById('QUESTION').innerHTML
                 = question;
-          
-            stopAlgorithm++;    
-            console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+             
+            console.log(COPDValue, " ", CancerValue, " ", DiabetesValue);
 
         } else {
 
@@ -139,8 +163,31 @@ function next() {
                 i++;
                     
                 question = storedQuestions[i];
-                stopAlgorithm++; 
-                console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+                console.log(COPDValue, " ", CancerValue, " ", DiabetesValue);
+
+
+                /* Tempoary */
+                for(var j = 0; j > usedQuestions.length; j++) {
+
+                    if (usedQuestions[j] == question) {
+                        
+                        i++;
+                        if (i >= storedQuestions.length) break;
+                        question = storedQuestions[i];
+                        j=-1;
+                    
+                    }
+                    
+                }
+                
+                if(j > usedQuestions.length) {
+
+                    usedQuestions[k] = question;
+                    questionAnswers[k] = answer;
+                    k++;
+    
+                }
+                /* Tempoary */
 
             }
             
@@ -187,6 +234,8 @@ function next() {
 
     } else if (running == false) {
 
+        /* Save usedQuestions, questionAnswers, and the three disease values into our database */
+
         window.location = "commentUK.html";
 
     }
@@ -194,6 +243,8 @@ function next() {
     console.log(question);
     console.log(storedQuestions);
     console.log(storedValues);
+
+    
 }
 
 
@@ -210,3 +261,5 @@ function exchange() {
 function stopProgram() {
 
 }
+
+
