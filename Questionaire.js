@@ -234,7 +234,21 @@ function next() {
 
     } else if (running == false) {
 
-        /* Save usedQuestions, questionAnswers, and the three disease values into our database */
+        /* Save usedQuestions, questionAnswers, and the three disease values into our database 
+        Array structure in database:
+        [["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        [[copd value, cancer value, diabetes value], comment (stored on next page)]]
+        */
 
         window.location = "commentUK.html";
 
