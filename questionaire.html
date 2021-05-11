@@ -67,7 +67,7 @@
           <p><input type="radio" name="Answer" id="a2" value="no">No</p>
       </div>
 
-      <input type="button" name=""  value="Next" onclick="next()" style="position: relative; top: 50px;">
+      <input type="button" name=""  value="Next" onclick="next(); func();" style="position: relative; top: 50px;">
 
   </form>
 
@@ -76,20 +76,8 @@
 	<!-- Making a comment field -->
     <h1 id="commentText"></h1>
 	<!-- Making a submition button -->
-    <!-- <a href="end.html"><button style="position: relative; left: 300px; top: 20px;">Submit</button></a> -->
+    <a href="end.html" id="commentButton"></a>
   </div>
-  <script>
-      var i = func();
-      if (i != 0){
-        document.getElementById("commentText").appendChild(document.createTextNode("Write your comments here:"))
-        var commentfield = document.createElement("textarea");
-        commentfield.setAttribute("cols","35");
-        commentfield.setAttribute("rows","7");
-        commentfield.setAttribute("name","Comment");
-        document.getElementById("commentPage").appendChild(commentfield);
-        document.getElementById("commentPage").appendChild(document.createElement("br"));
-      }
-  </script>
 
   </body>
 </html>

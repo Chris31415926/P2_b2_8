@@ -277,8 +277,6 @@ function next() {
     console.log(storedValues);
     // console.log(usedQuestions);
     // console.log(questionAnswers);
-    console.log(COPDValue[0], COPDValue[1], COPDValue, COPDValue[0]-COPDValue[1], COPDValue[2]);
-
     
 }
 
@@ -298,5 +296,23 @@ function stopProgram() {
 }
 
 function func() {
-    return go_to_comment;
+    if (go_to_comment == 1){
+        document.getElementById("Questionaire").remove();
+
+        var commentTitle = document.getElementById("commentText")
+        commentTitle.appendChild(document.createTextNode("Write your comments here:"))
+
+        var commentfield = document.createElement("textarea");
+        commentfield.setAttribute("cols","35");
+        commentfield.setAttribute("rows","7");
+        commentfield.setAttribute("name","Comment");
+        document.getElementById("commentPage").appendChild(commentfield);
+
+        document.getElementById("commentPage").appendChild(document.createElement("br"));
+
+        var buttonComment = document.createElement("button");
+        buttonComment.setAttribute("style","position: relative; left: 300px; top: 20px;");
+        buttonComment.appendChild(document.createTextNode("Submit"));
+        document.getElementById("commentButton").appendChild(buttonComment);
+  }
 }
