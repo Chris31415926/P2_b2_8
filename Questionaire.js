@@ -262,7 +262,7 @@ function next() {
         ["Question", "Answer"]
         ["Question", "Answer"]
         ["Question", "Answer"]
-        [[copd value, cancer value, diabetes value], comment (stored on next page)]]
+        [[copd value[0], cancer value[0], diabetes value[0]], comment (stored on next page)]]
         */
 
         // window.location = "commentUK.html";
