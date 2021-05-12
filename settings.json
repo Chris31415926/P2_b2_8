@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.shell.windows": "C:\\program files\\git\\bin\\bash.exe",
+    "editor.fontsize":26,
+    "workbench.acttivityBar.visible":true,
+    "files.autoSave":"afterDelay"
+}
