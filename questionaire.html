@@ -52,7 +52,7 @@
   }
   </style>
 
-  <body>
+  <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
   <!-- The top bar is created along with buttons that will be represented on the bar -->
   <div class="topnav">
       <a class="active" href="frontpage.html">Home</a>
@@ -67,15 +67,15 @@
           <p><input type="radio" name="Answer" id="a2" value="no">No</p>
       </div>
 
-      <input type="button" name=""  value="Next" onclick="next(); func();" style="position: relative; top: 50px;">
+      <input type="button" name=""  value="Next" onclick="next(); commentCreate();" style="position: relative; top: 50px;">
 
   </form>
 
-  <!-- Positions the body of the page -->
+  <!-- Positions the body of the comment page -->
   <div id="commentPage" style="position: fixed; left: 40px; top: 130px;">
-	<!-- Making a comment field -->
+	<!-- Making a placeholder for the comment field -->
     <h1 id="commentText"></h1>
-	<!-- Making a submition button -->
+	<!-- Making a placeholder for the submition button -->
     <a href="end.html" id="commentButton"></a>
   </div>
 
