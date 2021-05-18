@@ -52,7 +52,7 @@
   }
   </style>
 
-  <body>
+  <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
   <!-- The top bar is created along with buttons that will be represented on the bar -->
   <div class="topnav">
       <a class="active" href="frontpage.html">Home</a>
@@ -61,13 +61,23 @@
 
   <form name="Questionaire" id="Questionaire" style="position: relative; left: 50px; top: 60px;">
       <div>
-          <p id="QUESTION">Have you smoked cigarettes, or do you still smoke?</p>
+          <p id="QUESTION"></p>
+          <script>firstQuestion()</script>
           <p><input type="radio" name="Answer" id="a1" value="yes">Yes</p>
           <p><input type="radio" name="Answer" id="a2" value="no">No</p>
       </div>
 
-      <input type="button" name=""  value="Next" onclick="next()" style="position: relative; top: 50px;">
+      <input type="button" name=""  value="Next" onclick="next(); commentCreate();" style="position: relative; top: 50px;">
 
   </form>
+
+  <!-- Positions the body of the comment page -->
+  <div id="commentPage" style="position: fixed; left: 40px; top: 130px;">
+	<!-- Making a placeholder for the comment field -->
+    <h1 id="commentText"></h1>
+	<!-- Making a placeholder for the submition button -->
+    <a href="end.html" id="commentButton"></a>
+  </div>
+
   </body>
 </html>

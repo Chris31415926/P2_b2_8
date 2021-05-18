@@ -1,95 +1,70 @@
+
+/*Tempoary Database */
+var Database = {
+
+    questionFirst: ["Have you smoked cigarettes, or do you still smoke?"],
+
+    firstValues: [1, 1, 0],
+    
+    questionStart: ["Have you been exposed to dust for a long time?", "Have you got any new moles or a change in an existing mole?", "Do you have trouble breathing when you exercise?",
+    "Do you have trouble urinating?", "Do you cough mucus up?"],
+
+    startValues: [[1, 1, 0], [0, 1, 1], [1, 1, 0], [0, 1, 1], [1, 1, 0]],
+
+    questionsCopd: ["Have you ever had a respiratory illnesses in your childhood?", "Does your family have a history of respiratory diseases?", 
+    "Is your conditions affecting your quality of life?", "Do you use any kind of medicine including inhalers?", "Do you experience hoarseness?"],
+    
+    copdValues: [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 1, 0]],
+
+    questionsCancer: ["Do you have a firm or lump feeling in your breast or under your arm?", "Do you have skin that is itchy, red, scaly, dimpled or puckered?",
+     "Do you experience bleeding or bruising for no known reason?", "Do you experience pain after eating? (Heartburn or indigestion that does not go away)",
+      "Do you experience trouble swallowing?"],
+
+    cancerValues: [[0, 1, 0], [0, 1, 0], [0, 1, 0], [0, 1, 0], [0, 1, 0]],
+
+    questionsDiabetes: ["Do you often feel thirsty?", "Are you often feeling tired?", "Does your family have a history of diabetes?", 
+    "Are you physically active?", "Have you ever had gestational diabetes?"],
+    
+    diabetesValues: [[0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1]],
+
+    questionGeneral: ["yeet", "jacky chan", "big chungus",
+    "sanic", "pepe"],
+
+    generalValues: [[1, 0, 1], [0, 1, 0], [1, 0, 1], [0, 1, 0], [1, 0, 1]],
+
+    totalQuestions: 21,
+
+    totalValues:[9, 12, 7]
+
+};
+
 var running;
 
+var storedQuestions = [];
 var question = "";
+var storedValues = [];
+var usedQuestions = [];
+var questionAnswers = [];
 
-var stopAlgorithm = 0;
-var CancerValue = 0;
-var COPDValue = 0;
-var DiabetesValue = 0;
+var CancerValue = [0, 0, 0];
+var COPDValue = [0, 0, 0];
+var DiabetesValue = [0, 0, 0];
 
-var q1 = "Have you been exposed to dust for a long time?";
-var q2 = "Have you got any new moles or a change in an existing mole?";
-var q3 = "Do you have trouble breathing when you exercise?";
-var q4 = "Do you have trouble urinating?";
-var q5 = "Do you cough mucus up?";
-var q1COPD = 1;
-var q1Cancer = 1;
-var q1Diabetes = 0;
-var q2COPD = 0;
-var q2Cancer = 1;
-var q2Diabetes = 1;
-var q3COPD = 1;
-var q3Cancer = 1;
-var q3Diabetes = 0;
-var q4COPD = 0;
-var q4Cancer = 1;
-var q4Diabetes = 1;
-var q5COPD = 1;
-var q5Cancer = 1;
-var q5Diabetes = 0;
+var i = 0;
+var j = 0;
+var k = 0;
 
-var q1CO = "Have you ever had a respiratory illnesses in your childhood?";
-var q2CO = "Does your family have a history of respiratory diseases?";
-var q3CO = "Is your conditions affecting your quality of life?";
-var q4CO = "Do you use any kind of medicine including inhalers?";
-var q5CO = "Do you experience hoarseness?";
-var q1COCOPD = 1;
-var q1COCancer = 0;
-var q1CODiabetes = 0;
-var q2COCOPD = 1;
-var q2COCancer = 0;
-var q2CODiabetes = 0;
-var q3COCOPD = 1;
-var q3COCancer = 0;
-var q3CODiabetes = 0;
-var q4COCOPD = 1;
-var q4COCancer = 0;
-var q4CODiabetes = 0;
-var q5COCOPD = 1;
-var q5COCancer = 1;
-var q5CODiabetes = 0;
+var go_to_comment = 0;
 
-var q1C = "Do you have a firm or lump feeling in your breast or under your arm?";
-var q2C = "Do you have skin that is itchy, red, scaly, dimpled or puckered?";
-var q3C = "Do you experience bleeding or bruising for no known reason?";
-var q4C = "Do you experience pain after eating? (Heartburn or indigestion that does not go away)";
-var q5C = "Do you experience trouble swallowing?";
-var q1CCOPD = 0;
-var q1CCancer = 1;
-var q1CDiabetes = 0;
-var q2CCOPD = 0;
-var q2CCancer = 1;
-var q2CDiabetes = 0;
-var q3CCOPD = 0;
-var q3CCancer = 1;
-var q3CDiabetes = 0;
-var q4CCOPD = 0;
-var q4CCancer = 1;
-var q4CDiabetes = 0;
-var q5CCOPD = 0;
-var q5CCancer = 1;
-var q5CDiabetes = 0;
 
-var q1D = "Do you often feel thirsty?";
-var q2D = "Are you often feeling tired?";
-var q3D = "Does your family have a history of diabetes?";
-var q4D = "Are you physically active?";
-var q5D = "Have you ever had gestational diabetes?";
-var q1DCOPD = 0;
-var q1DCancer = 0;
-var q1DDiabetes = 1;
-var q2DCOPD = 0;
-var q2DCancer = 0;
-var q2DDiabetes = 1;
-var q3DCOPD = 0;
-var q3DCancer = 0;
-var q3DDiabetes = 1;
-var q4DCOPD = 0;
-var q4DCancer = 0;
-var q4DDiabetes = 1;
-var q5DCOPD = 0;
-var q5DCancer = 0;
-var q5DDiabetes = 1;
+function firstQuestion() {
+
+    question = Database.questionFirst;
+
+    document.getElementById('QUESTION').innerHTML 
+        = question;
+
+}
 
 function next() {
 
@@ -97,267 +72,83 @@ function next() {
 
     var boxCheckedYes = a1.checked;
     var boxCheckedNo = a2.checked;
-    
 
-    if(boxCheckedYes != true && boxCheckedNo != true) {
 
+    if (boxCheckedYes != true && boxCheckedNo != true) {
+        
             alert("You haven't checked any boxes.");
             running = undefined;
 
     } else if (boxCheckedYes == true || boxCheckedNo == true) {
-
+        
             running = true;
 
     }
 
-    if (stopAlgorithm >= 20) {
+    if (storedQuestions == "" && storedValues == "") {
 
-        running = false;
-
+        storedQuestions = Database.questionStart;
+        storedValues = Database.startValues;
     }
 
+    stopProgram();
 
     if (running == true) {
 
-        if (question == "") {
+        if (question == Database.questionFirst) {
 
             if (answer == "yes") {
 
-                COPDValue++;
-                CancerValue++;
+                COPDValue[0] = COPDValue[0] + Database.firstValues[0];
+                CancerValue[0] = CancerValue[0] + Database.firstValues[1];
+                DiabetesValue[0] = DiabetesValue[0] + Database.firstValues[2];
         
             } else if (answer == "no") {
         
-                DiabetesValue++;
+                COPDValue[1] = COPDValue[1] + Database.firstValues[0];
+                CancerValue[1] = CancerValue[1] + Database.firstValues[1];
+                DiabetesValue[1] = DiabetesValue[1] + Database.firstValues[2];
         
             }
+            question = storedQuestions[i];
             
-            question = q1;
-
             document.getElementById('QUESTION').innerHTML
                 = question;
-
-            if (question == q1 && answer == "yes") {
-
-                COPDValue = COPDValue + q1COPD;
-                CancerValue = CancerValue + q1Cancer;
-                DiabetesValue = DiabetesValue + q1Diabetes;
-    
-            } else if (answer == "no") {
-    
-                COPDValue = COPDValue + (1 - q1COPD);
-                CancerValue = CancerValue + (1 - q1Cancer);
-                DiabetesValue = DiabetesValue + (1 - q1Diabetes);
-    
-            }
-          
-                question = q2;
-                stopAlgorithm++;    
-                console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
+             
+            console.log(COPDValue, " ", CancerValue, " ", DiabetesValue);
 
         } else {
 
-            if (question == q5) {
-
-                document.getElementById('QUESTION').innerHTML
-                    = question;
-
-                if (answer == "yes") {
-
-                    COPDValue = COPDValue + q5COPD;
-                    CancerValue = CancerValue + q5Cancer;
-                    DiabetesValue = DiabetesValue + q5Diabetes;
-    
-                } else if (answer == "no") {
-    
-                    COPDValue = COPDValue + (1 - q5COPD);
-                    CancerValue = CancerValue + (1 - q5Cancer);
-                    DiabetesValue = DiabetesValue + (1 - q5Diabetes);
-    
-                }
-
-                stopAlgorithm++; 
-                console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-
-            } if (question == q4) {
-
-                document.getElementById('QUESTION').innerHTML
-                    = question;
-
-                if (answer == "yes") {
-
-                    COPDValue = COPDValue + q4COPD;
-                    CancerValue = CancerValue + q4Cancer;
-                    DiabetesValue = DiabetesValue + q4Diabetes;
-    
-                } else if (answer == "no") {
-    
-                    COPDValue = COPDValue + (1 - q4COPD);
-                    CancerValue = CancerValue + (1 - q4Cancer);
-                    DiabetesValue = DiabetesValue + (1 - q4Diabetes);
-    
-                }
-
-                    question = q5;
-                    stopAlgorithm++; 
-                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-
-            } if (question == q3) {
-
-                document.getElementById('QUESTION').innerHTML
-                    = question;
-
-                if (answer == "yes") {
-
-                    COPDValue = COPDValue + q3COPD;
-                    CancerValue = CancerValue + q3Cancer;
-                    DiabetesValue = DiabetesValue + q3Diabetes;
-    
-                } else if (answer == "no") {
-    
-                    COPDValue = COPDValue + (1 - q3COPD);
-                    CancerValue = CancerValue + (1 - q3Cancer);
-                    DiabetesValue = DiabetesValue + (1 - q3Diabetes);
-    
-                }
-
-                    question = q4;
-                    stopAlgorithm++; 
-                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-
-            } if (question == q2) {
-
-                document.getElementById('QUESTION').innerHTML
-                    = question;
-
-                if (answer == "yes") {
-
-                    COPDValue = COPDValue + q2COPD;
-                    CancerValue = CancerValue + q2Cancer;
-                    DiabetesValue = DiabetesValue + q2Diabetes;
-    
-                } else if (answer == "no") {
-    
-                    COPDValue = COPDValue + (1 - q2COPD);
-                    CancerValue = CancerValue + (1 - q2Cancer);
-                    DiabetesValue = DiabetesValue + (1 - q2Diabetes);
-    
-                }  
-
-                    question = q3;
-                    stopAlgorithm++; 
-                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-
-            } if (question == q1) {
-
-                document.getElementById('QUESTION').innerHTML
-                    = question;
-
-                if (answer == "yes") {
-
-                    COPDValue = COPDValue + q1COPD;
-                    CancerValue = CancerValue + q1Cancer;
-                    DiabetesValue = DiabetesValue + q1Diabetes;
-
-                } else if (answer == "no") {
-
-                    COPDValue = COPDValue + (1 - q1COPD);
-                    CancerValue = CancerValue + (1 - q1Cancer);
-                    DiabetesValue = DiabetesValue + (1 - q1Diabetes);
-
-                }
-
-                    question = q2;
-                    stopAlgorithm++; 
-                    console.log(stopAlgorithm, " ", COPDValue, " ", CancerValue, " ", DiabetesValue);
-
-                    
-            }
+            changePage(answer);
             
         }
-
-        if (question == q5 && COPDValue > CancerValue && COPDValue > DiabetesValue) {
-
-            q1 = q1CO;
-            q2 = q2CO;
-            q3 = q3CO;
-            q4 = q4CO;
-            q5 = q5CO;
-            q1COPD = q1COCOPD;
-            q1Cancer = q1COCancer;
-            q1Diabetes = q1CODiabetes;
-            q2COPD = q2COCOPD;
-            q2Cancer = q2COCancer;
-            q2Diabetes = q2CODiabetes;
-            q3COPD = q3COCOPD;
-            q3Cancer = q3COCancer;
-            q3Diabetes = q3CODiabetes;
-            q4COPD = q4COCOPD;
-            q4Cancer = q4COCancer;
-            q4Diabetes = q4CODiabetes;
-            q5COPD = q5COCOPD;
-            q5Cancer = q5COCancer;
-            q5Diabetes = q5CODiabetes;
-
-            question = q1;
-
-        } else if (question == q5 && CancerValue > COPDValue && CancerValue > DiabetesValue) {
-
-            q1 = q1C;
-            q2 = q2C;
-            q3 = q3C;
-            q4 = q4C;
-            q5 = q5C;
-            q1COPD = q1CCOPD;
-            q1Cancer = q1CCancer;
-            q1Diabetes = q1CDiabetes;
-            q2COPD = q2CCOPD;
-            q2Cancer = q2CCancer;
-            q2Diabetes = q2CDiabetes;
-            q3COPD = q3CCOPD;
-            q3Cancer = q3CCancer;
-            q3Diabetes = q3CDiabetes;
-            q4COPD = q4CCOPD;
-            q4Cancer = q4CCancer;
-            q4Diabetes = q4CDiabetes;
-            q5COPD = q5CCOPD;
-            q5Cancer = q5CCancer;
-            q5Diabetes = q5CDiabetes;
-
-            question = q1;
-
-        } else if (question == q5 && DiabetesValue > CancerValue && DiabetesValue > COPDValue) {
-
-            q1 = q1D;
-            q2 = q2D;
-            q3 = q3D;
-            q4 = q4D;
-            q5 = q5D;
-            q1COPD = q1DCOPD;
-            q1Cancer = q1DCancer;
-            q1Diabetes = q1DDiabetes;
-            q2COPD = q2DCOPD;
-            q2Cancer = q2DCancer;
-            q2Diabetes = q2DDiabetes;
-            q3COPD = q3DCOPD;
-            q3Cancer = q3DCancer;
-            q3Diabetes = q3DDiabetes;
-            q4COPD = q4DCOPD;
-            q4Cancer = q4DCancer;
-            q4Diabetes = q4DDiabetes;
-            q5COPD = q5DCOPD;
-            q5Cancer = q5DCancer;
-            q5Diabetes = q5DDiabetes;
-
-            question = q1;
-
-        }
+        
+        // exchange();
 
     } else if (running == false) {
 
-        window.location = "commentUK.html";
+        /* Save usedQuestions, questionAnswers, and the three disease values into our database 
+        Array structure in database:
+        [["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        ["Question", "Answer"]
+        [[copd value[0], cancer value[0], diabetes value[0]], comment (stored on next page)]]
+        */
+
+        // window.location = "commentUK.html";
+
+        go_to_comment = 1;
 
     }
+    
 }
 
 
@@ -366,11 +157,154 @@ function check() {
 
 }
 
+function changePage(answer) {
+    if (question == storedQuestions[i]) {
+        for(j = 0; j <= usedQuestions.length; j++) {
+            
+            if (usedQuestions[j] == question) {
+                if (i >= storedQuestions.length) break;
+                
+                COPDValue[1] = COPDValue[1] + storedValues[i][0];
+                CancerValue[1] = CancerValue[1] + storedValues[i][1];
+                DiabetesValue[1] = DiabetesValue[1] + storedValues[i][2];
+
+                i++;
+                if (i >= storedQuestions.length){
+                    exchange();
+                }
+                question = storedQuestions[i];
+                j=-1;
+            
+            }
+            
+        }
+
+        if(j > usedQuestions.length) {
+
+            usedQuestions[k] = question;
+            questionAnswers[k] = answer;
+            k++;
+
+            if (i < storedQuestions.length){
+                
+
+                if (answer == "yes") {
+                
+                    COPDValue[0] = COPDValue[0] + storedValues[i][0];
+                    CancerValue[0] = CancerValue[0] + storedValues[i][1];
+                    DiabetesValue[0] = DiabetesValue[0] + storedValues[i][2];
+
+                } else if (answer == "no") {
+
+                    COPDValue[1] = COPDValue[1] + storedValues[i][0];
+                    CancerValue[1] = CancerValue[1] + storedValues[i][1];
+                    DiabetesValue[1] = DiabetesValue[1] + storedValues[i][2];
+
+                }
+
+                i++;
+                exchange();
+            
+                question = storedQuestions[i];
+                console.log(COPDValue, " ", CancerValue, " ", DiabetesValue);
+
+                document.getElementById('QUESTION').innerHTML
+                    = question;
+            }
+        } 
+    }
+}
+
 // Use to exchange the questions and values for the questions instead of it being in next()
 function exchange() {
+    COPDValue[2] = COPDValue[0]-COPDValue[1];
+    CancerValue[2] = CancerValue[0]-CancerValue[1];
+    DiabetesValue[2] = DiabetesValue[0]-DiabetesValue[1];
 
+    if (i >= storedQuestions.length && COPDValue[2] > CancerValue[2] && COPDValue[2] > DiabetesValue[2]) {
+
+        storedQuestions = Database.questionsCopd;
+        storedValues = Database.copdValues;
+
+        i = 0;
+
+        question = storedQuestions[i];
+
+    } else if (i >= storedQuestions.length && CancerValue[2] > COPDValue[2] && CancerValue[2] > DiabetesValue[2]) {
+
+        storedQuestions = Database.questionsCancer;
+        storedValues = Database.cancerValues;
+
+        i = 0;
+
+        question = storedQuestions[i];
+
+    } else if (i >= storedQuestions.length && DiabetesValue[2] > CancerValue[2] && DiabetesValue[2] > COPDValue[2]) {
+        
+        storedQuestions = Database.questionsDiabetes;
+        storedValues = Database.diabetesValues;
+
+        i = 0;
+
+        question = storedQuestions[i];
+
+    } else if (i >= storedQuestions.length 
+            && (DiabetesValue[2] == CancerValue[2] 
+                || DiabetesValue[2] == COPDValue[2] 
+                || CancerValue[2] == COPDValue[2])) {
+        
+        storedQuestions = Database.questionGeneral;
+        storedValues = Database.generalValues;
+
+        i = 0;
+
+        question = storedQuestions[i];
+    }
 }
 
 function stopProgram() {
+    if ((COPDValue[0] > (0.9 * Database.totalValues[0])
+    && CancerValue[0] < (0.4 * Database.totalValues[1]) 
+    && DiabetesValue[0] < (0.4 * Database.totalValues[2])) 
+    || (CancerValue[0] > (0.9 * Database.totalValues[1])
+    && DiabetesValue[0] < (0.4 * Database.totalValues[2]) 
+    && COPDValue[0] < (0.4 * Database.totalValues[0])) 
+    || (DiabetesValue[0] > (0.9 * Database.totalValues[2]) 
+    && CancerValue[0] < (0.4 * Database.totalValues[1]) 
+    && COPDValue[0] < (0.4 * Database.totalValues[0]))) {
 
+        running = false;
+
+    } else if (COPDValue[0] >= Database.totalValues[0] || CancerValue[0] >= Database.totalValues[1] || DiabetesValue[0] >= Database.totalValues[2]) {
+
+        running = false;
+
+    } else if (k >= Database.totalQuestions) {
+
+        running = false;
+
+    }
+}
+
+/* This function handles the removal of the questionnaire elements and replaces them with the comment parts and submission button. */
+function commentCreate() {
+    if (go_to_comment == 1){
+        document.getElementById("Questionaire").remove();
+
+        var commentTitle = document.getElementById("commentText")
+        commentTitle.appendChild(document.createTextNode("Write your comments here:"))
+
+        var commentfield = document.createElement("textarea");
+        commentfield.setAttribute("cols","35");
+        commentfield.setAttribute("rows","7");
+        commentfield.setAttribute("name","Comment");
+        document.getElementById("commentPage").appendChild(commentfield);
+
+        document.getElementById("commentPage").appendChild(document.createElement("br"));
+
+        var buttonComment = document.createElement("button");
+        buttonComment.setAttribute("style","position: relative; left: 300px; top: 20px;");
+        buttonComment.appendChild(document.createTextNode("Submit"));
+        document.getElementById("commentButton").appendChild(buttonComment);
+  }
 }
