@@ -24,12 +24,11 @@
         Http.send();
         console.log("waiting");
         Http.onreadystatechange = (e) => {
-        Database = Http.response;
-        if(Database.length!=null){
-            datalength = Database.length;
+            Database = Http.response;
+            if(Database.length!=null){
+                datalength = Database.length;
+            }
         }
-
-    }
 
         /* for loop that goes through the whole database to check whether the input is within it */
         for(let len = 0; len<datalength; len++){

@@ -1,0 +1,25 @@
+<div class="row justify-content-md-center" style="margin-top: 100px">
+    <div class="col-md-6">
+
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+
+        <form method="POST" action="/login" style="position: relative; left: 150px; top: 50px;">
+            <div class="form-group">
+                <label for="exampleInputUserName1">User name:</label>
+                <input name="userName" type="userName" class="form-control" id="exampleInputUserName1" placeholder="Enter user name">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password:</label>
+                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary" style="font-size: 1.5vw; position: relative; top: 40px;">Login</button>
+        </form>
+	    <br>
+	    <a href="/register"><button style="font-size: 1.5vw; position: relative; left: 150px; top: 90px;">Register</button></a>
+    </div>
+</div>
