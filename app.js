@@ -1,10 +1,30 @@
 const express = require('express');
+const mysql = require('mysql');
 const exphbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
+
+var users=[];
+var counter = 0;
+
+// Create connection
+const db = mysql.createConnection({
+    host        : 'localhost',
+    user        : 'root',
+    password    : 'password',
+    database    : 'hospitalmanagement'
+});
+
+// Connect
+db.connect((err) => {
+    if(err){
+        throw err;
+    }
+    console.log("MySQL Connected...")
+})
 
 
 // To support URL-encoded bodies
@@ -20,6 +40,9 @@ app.engine('html', exphbs({
 
 app.set('view engine', 'html');
 
+
+// This will hold the users and authToken related to users
+const authTokens = {};
 
 app.use((req, res, next) => {
     // Get auth token from the cookies
@@ -82,126 +105,122 @@ app.get('/register', (req, res) => {
     res.render('register');
 });
 
-const crypto = require('crypto');
+db.query("SELECT * FROM patient_login", function(err, result, fields) {
+    if(err) throw err;
+    users = result;
+})
 
-const getHashedPassword = (password) => {
-    const sha256 = crypto.createHash('sha256');
-    const hash = sha256.update(password).digest('base64');
-    return hash;
-}
+setTimeout(function(){
 
-const users = [
-    // This user is added to the array to avoid creating a new user on each restart
-    {
-        userName: 'johndoe',
-        // This is the SHA256 hash for value of `password`
-        password: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg='
-    }
-];
+    app.post('/register', (req, res) => {
+        const { userName, password, confirmPassword } = req.body;
 
-app.post('/register', (req, res) => {
-    const { userName, password, confirmPassword } = req.body;
+        // Check if the password and confirm password fields match
+        if (password === confirmPassword) {
 
-    // Check if the password and confirm password fields match
-    if (password === confirmPassword) {
+            // Check if user with the same email is also registered
+            if (users.find(user => user.userName === userName)) {
 
-        // Check if user with the same email is also registered
-        if (users.find(user => user.userName === userName)) {
+                res.render('register', {
+                    message: 'User already registered.',
+                    messageClass: 'alert-danger'
+                });
 
-            res.render('register', {
-                message: 'User already registered.',
-                messageClass: 'alert-danger'
+                return;
+            }
+
+            // Store user into the database if you are using one
+            users.push({
+                userName,
+                password
             });
 
-            return;
+            let sql = `INSERT INTO patient_login(userID, userName, password) VALUES ('${users.length}', '${users[users.length-1].userName}', '${users[users.length-1].password}')`;
+            let query = db.query(sql, (err, result) => {
+                if(err) throw err;
+    })
+
+            res.render('login', {
+                message: 'Registration Complete. Please login to continue.',
+                messageClass: 'alert-success'
+            });
+        } else {
+            res.render('register', {
+                message: 'Password does not match.',
+                messageClass: 'alert-danger'
+            });
         }
-
-        const hashedPassword = getHashedPassword(password);
-
-        // Store user into the database if you are using one
-        users.push({
-            userName,
-            password: hashedPassword
-        });
-
-        res.render('login', {
-            message: 'Registration Complete. Please login to continue.',
-            messageClass: 'alert-success'
-        });
-    } else {
-        res.render('register', {
-            message: 'Password does not match.',
-            messageClass: 'alert-danger'
-        });
-    }
-});
-
-
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
-const generateAuthToken = () => {
-    return crypto.randomBytes(30).toString('hex');
-}
-
-// This will hold the users and authToken related to users
-const authTokens = {};
-
-app.post('/login', (req, res) => {
-    const { userName, password } = req.body;
-    const hashedPassword = getHashedPassword(password);
-
-    const user = users.find(u => {
-        return u.userName === userName && hashedPassword === u.password
     });
 
-    if (user) {
-        const authToken = generateAuthToken();
 
-        // Store authentication token
-        authTokens[authToken] = user;
+    app.get('/login', (req, res) => {
+        res.render('login');
+    });
 
-        // Setting the auth token in cookies
-        res.cookie('AuthToken', authToken);
-
-        // Redirect user to the protected page
-        res.redirect('/protected');
-    } else {
-        res.render('login', {
-            message: 'Invalid username or password',
-            messageClass: 'alert-danger'
-        });
+    const generateAuthToken = () => {
+        return counter;
     }
-});
 
+    app.post('/login', (req, res) => {
+        const { userName, password } = req.body;
 
-app.get('/protected', (req, res) => {
-    if (req.user) {
-        res.render('protected');
-    } else {
-        res.render('login', {
-            message: 'Please login to continue',
-            messageClass: 'alert-danger'
+        const user = users.find(u => {
+            return u.userName === userName && password === u.password
         });
-    }
-});
+
+        if (user) {
+            const authToken = /* counter */generateAuthToken();
+            counter++;
+
+            // Store authentication token
+            authTokens[authToken] = user;
+
+            console.log(authToken, authTokens)
+
+            // Setting the auth token in cookies
+            res.cookie('AuthToken', authToken);
+
+            // Redirect user to the protected page
+            res.redirect('/protected');
+        } else {
+            res.render('login', {
+                message: 'Invalid username or password',
+                messageClass: 'alert-danger'
+            });
+        }
+    });
 
 
-app.get('/Questionaire.html', function(req, res) {
-    res.sendFile(path.join(__dirname, '/questionaire.html'));
-});
+    app.get('/protected', (req, res) => {
+        if (req.user) {
+            res.render('protected');
+        } else {
+            res.render('login', {
+                message: 'Please login to continue',
+                messageClass: 'alert-danger'
+            });
+        }
+    });
 
-app.get('/Questionaire.js', function(req, res) {
-    res.sendFile(path.join(__dirname, '/Questionaire.js'));
-});
+    app.get('/questionaire', (req, res) => {
+        res.render('questionaire');
+    });
+
+    app.get('/Questionaire.js', function(req, res) {
+        res.sendFile(path.join(__dirname, '/Questionaire.js'));
+    });
+
+}, 1000);
+
+// app.get('/Questionaire.html', function(req, res) {
+//     res.sendFile(path.join(__dirname, '/questionaire.html'));
+// });
+
 
 
 app.get('/end.html', function(req, res) {
     res.sendFile(path.join(__dirname, '/end.html'));
 });
-
-
 
 
 app.listen('3000', () => {
